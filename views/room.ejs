@@ -4,31 +4,33 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Private room</title>
-    <style>
-      body {
-        margin: 40px auto;
-        max-width: 80%;
-        line-height: 1.6;
-        font-size: 18px;
-        font-family: "Courier New", Courier, monospace;
-        color: #444;
-        padding: 0 10px;
-      }
-      h2 {
-        line-height: 1.2;
-      }
-    </style>
     <script>
       const roomId = '<%=roomId%>'
     </script>
     <script src="/socket.io/socket.io.js" defer></script>
     <script src='/script.js' defer></script>
+    <link rel="stylesheet" href="/style.css">
   </head>
 
   <body>
-    <h2>Inside room with room id <%=roomId%> which shares video <%=fileName%> </h2>
-    <video id="videoPlayer" width="650" controls autoplay>
-      <source src='/stream/<%=fileName%>' type="video/mp4" />
-    </video>
+    <div class="wrap">  
+      <div class="container video-player ">
+        <video id="video-player" width="650" controls autoplay>
+          <source src='/stream/<%=fileName%>' type="video/mp4" />
+        </video>
+      </div>      
+      <div class="container video-grid ">
+        <div id="video-grid">
+
+        </div>
+      </div>      
+      <div class="container chat-box">
+        <div id="chat-box">
+
+        </div>
+      </div>      
+    </div>
+
+
   </body>
 </html>

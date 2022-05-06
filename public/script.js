@@ -6,7 +6,7 @@ const socket=io('/')
 socket.emit('join-room', roomId)
 
 //select vid element
-const vid=document.getElementById('videoPlayer')
+const vid=document.getElementById('video-player')
 
 //emit events. for any change in video element
 vid.addEventListener( 'pause', ()=>{
