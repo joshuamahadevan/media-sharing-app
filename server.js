@@ -1,8 +1,10 @@
 //initialisation
+const global=require('./modules/global')
 const express=require('express')
 const app=express()
 const http=require('http')
 const httpServer=http.createServer(app)
+global.io=require('socket.io')(httpServer)
 const uploadRouter = require('./modules/uploadRouter')
 const streamRouter = require('./modules/streamRouter')
 const roomsRouter = require('./modules/roomsRouter')
@@ -14,6 +16,7 @@ const PORT=3000
 app.set('view engine', 'ejs') //view engine
 app.use(express.json()) //parser for json
 app.use(express.urlencoded({extended: true})) //pareser for url-encoded 
+app.use(express.static('public'))
 
 app.get('/', (req,res)=>{  
     res.render('home')
