@@ -17,7 +17,9 @@ router.get('/:roomId', (req,res)=>{
 global.io.on('connect', socket => {
     socket.on('join-room', (roomId) =>{
         socket.join(roomId)
-
+        socket.on('new-message', payload =>{
+            socket.broadcast.to(roomId).emit('new-message', payload)
+        })
         socket.on('pause', payload=>{ 
             socket.broadcast.to(roomId).emit('pause', payload)
         })
