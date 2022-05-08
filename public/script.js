@@ -33,18 +33,6 @@ socket.on('play', (time)=>{
 const msg=document.getElementById('message')
 const msgBox=document.getElementById('chat-box')
 
-// document.addEventListener('DOMContentLoaded', ()=>{
-//     while(1){
-//         let name=prompt('Please enter your name', 'Name')
-//         if(name!=null){
-//             userName=name
-//             document.getElementById('name').innerHTML=`as ${userName}`
-//             console.log(userName)
-//             break;
-//         }        
-//     }
-// })
-
 //sending msgs
 const sendMessage = (e)=>{
     e.preventDefault();
@@ -52,8 +40,8 @@ const sendMessage = (e)=>{
 
     //adding msg to dom
     const div=document.createElement('div')
-    div.classList.add('user-message')
-    div.innerHTML=`<p>${msg.value}</p>`
+    div.classList.add('chat-message')
+    div.innerHTML=`<h2>You</h2><p>${msg.value}</p>`
     msgBox.appendChild(div)
 
     console.log('emited message ',msg.value )
@@ -66,7 +54,7 @@ socket.on('new-message', (payload)=>{
     console.log('received massage from ', payload.user)
     const div=document.createElement('div')
     div.classList.add('chat-message')
-    div.innerHTML=`<h5>${payload.user}</h5><p>${payload.message}`
+    div.innerHTML=`<h2>${payload.user}</h2><p>${payload.message}`
     msgBox.appendChild(div)
 })
 

@@ -3,7 +3,127 @@
     padding: 0;
 }
 
-.wrap{
+html, body{
+    height: 100%;
+    /* overflow: hidden; */
+}
+
+span{
+    font-weight: bold;
+}
+
+.navbar{
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+
+.main{
+    height: 91vh;
+    /* overflow: hidden; */
+    display: flex;
+}
+
+.main-left{
+    flex: 0.7;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-right{
+    background-color: thistle;
+    flex: 0.3;
+    display: flex;
+    flex-direction: column;
+}
+
+#chat-box{
+    overflow-y: scroll;
+    flex: 0.91;
+}
+
+#chat-form{
+    flex: 0.08
+}
+
+#message-form{
+    display: flex;
+    height: 100%;
+    padding: 1rem;
+    border-radius: .5rem;
+}
+
+#message{
+    flex: .9;
+    height: 100%;
+    padding: 1rem;
+    border-radius: .5rem;
+}
+.submit{
+    flex: .1;
+    height: 100%;
+    padding: 1rem;
+    border-radius: .5rem;
+    margin-left: .8rem;
+}
+
+.video-play{
+    background-color: rgb(174, 255, 255);
+    flex: .7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.video-chat{
+    overflow-y: scroll;
+    background-color: aliceblue ;
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 25vh);
+    grid-auto-rows: 20vh;
+}
+
+.video-chat video{
+    margin: 5%;
+    width: 90%;
+    height: 90%;
+    object-fit: cover;
+    border-radius: 1rem;
+}
+
+#video-player{
+    margin: 5%;
+    max-width: 90%;
+    max-height: 50vh;
+}
+
+h5,h2, p{
+    margin: 0;
+}
+
+.chat-message{
+    margin: 1.5rem 1rem;
+    padding: 1rem;
+}
+
+.chat-message h2{
+    font-size: large;
+    margin: 0 0 1rem .5rem;
+    color: rgb(7, 34, 58);
+    filter: drop-shadow(5px 5px 10px aliceblue);
+}
+
+.chat-message p{
+    font-size: larger;
+    background-color: aliceblue;
+    border: 1px solid black;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    font-size: small;
+    color: #000000;
+}
+/* .wrap{
     position: absolute;
     width: 100%;
     height: 100%;
@@ -106,4 +226,4 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-}
+} */

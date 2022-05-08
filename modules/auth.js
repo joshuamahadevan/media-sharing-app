@@ -15,14 +15,14 @@ router.get('/logout', (req,res) => {
 
 const verify = (req,res,next)=>{
     const token=req.cookies.auth
-    if(!token) return res.status(401).send('Access Denied')
+    if(!token) return res.status(401).render('pleaselogin')
 
     try{
         const verified=jwt.verify(token, "top-secret");
         if(verified)  req.user=verified 
         next()
     }catch(err){
-        res.status(400).send('Invalid Token')
+        res.status(400).redirect('https://youtube.com/shorts/TTibfbEkoQ0?feature=share')
     }
 }
 
