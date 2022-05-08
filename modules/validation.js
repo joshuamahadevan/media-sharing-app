@@ -1,9 +1,10 @@
 const Joi=require('joi')
 
 const registerValidation = (data)=>{
-    const registerSchema={
+    const registerSchema=Joi.object({
         name: Joi
             .string()
+            .alphanum()
             .min(6)
             .max(255)
             .required(),
@@ -17,12 +18,12 @@ const registerValidation = (data)=>{
             .string()
             .min(6)
             .required()
-    }   
-    return Joi.validate(data, registerSchema) 
+    })
+    return registerSchema.validate(data)
 }
 
 const loginValidation = (data)=>{
-    const loginSchema={
+    const loginSchema=Joi.object({
         email: Joi
             .string()
             .min(6)
@@ -33,8 +34,9 @@ const loginValidation = (data)=>{
             .string()
             .min(6)
             .required()
-    }   
-    return Joi.validate(data, loginSchema) 
+    })
+
+    return loginSchema.validate(data) 
 }
 
 module.exports = { registerValidation, loginValidation }

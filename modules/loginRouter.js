@@ -6,7 +6,12 @@ const User=require('../model/User')
 const {loginValidation} = require('./validation')
 const jwt = require('jsonwebtoken')
 
+router.get('/', (req,res)=>{
+    res.render('login')
+})
+
 router.post('/', async (req,res)=>{
+    console.log(req.body)
     //validate before proceeding
     const {error}=loginValidation(req.body)
     if(error) res.status(400).send(error.details[0].message)
@@ -25,3 +30,5 @@ router.post('/', async (req,res)=>{
     
     //logged in
 })
+
+module.exports=router

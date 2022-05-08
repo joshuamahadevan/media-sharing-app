@@ -1,11 +1,13 @@
 const express=require('express')
 const router=express.Router()
 const User=require('../model/User')
-const jwt=requier('jsonwebtoken')
+const jwt=require('jsonwebtoken')
+const loginRouter=require('./loginRouter')
+const registerRouter=require('./registerRouter')
 
 router.use('/login', loginRouter)
 router.use('/register', registerRouter)
-router.get('/', (req,res)=> res.redirect('/login'))
+router.get('/', (req,res)=> res.redirect('auth/login'))
 
 const verify = (req,res,next)=>{
     const token=req.header('auth-token')

@@ -23,15 +23,16 @@ app.use(express.json()) //parser for json
 app.use(express.urlencoded({extended: true})) //pareser for url-encoded 
 app.use(express.static('public'))
 
+
+app.use('/auth', authRouter)
+//routers
 app.get('/', (req,res)=>{  
     res.render('home')
 })
-
-//routers
 app.use('/upload', uploadRouter)
 app.use('/rooms', roomsRouter)
 app.use('/stream', streamRouter)
-app.use('/auth', authRouter)
+
 
 //listen to port
 httpServer.listen(PORT | 3000, ()=> console.log(`Server started at port ${PORT | 3000}`))
