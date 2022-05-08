@@ -8,6 +8,11 @@ global.io=require('socket.io')(httpServer)
 const uploadRouter = require('./modules/uploadRouter')
 const streamRouter = require('./modules/streamRouter')
 const roomsRouter = require('./modules/roomsRouter')
+const {authRouter, verify}=require('./modules/auth')
+const mongoose=require('mongoose')
+mongoose.connect('mongodb://localhost/mediaShare', ()=>{
+    console.log('connected to database')
+})
 
 //port 
 const PORT=3000
@@ -26,6 +31,7 @@ app.get('/', (req,res)=>{
 app.use('/upload', uploadRouter)
 app.use('/rooms', roomsRouter)
 app.use('/stream', streamRouter)
+app.use('/auth', authRouter)
 
 //listen to port
 httpServer.listen(PORT | 3000, ()=> console.log(`Server started at port ${PORT | 3000}`))
