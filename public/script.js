@@ -3,25 +3,39 @@ const socket=io('/')
 
 const myPeer=new Peer()
 
-myPeer.on( 'open' , (id)=>{
-    socket.emit('join-room', {roomId, id})
-})
-//VIDEO SYNC
 
+//VIDEO SYNC
+let synced=false
 //select vid element
 const vid=document.getElementById('video-player')
 
+myPeer.on( 'open' , (id)=>{
+    socket.emit('join-room', {roomId, id})
+})
+
 //emit events. for any change in video element
 vid.addEventListener( 'pause', ()=>{
+    synced=true
     socket.emit('pause')
     console.log("emited pause")
 })
 vid.addEventListener( 'play', ()=>{
+    synced=true
     socket.emit('play', vid.currentTime)
     console.log("emited play")
 })
 
 //receive events from socket
+socket.on('welcome', payload =>{
+    console.log('got welcome package')
+    console.log(payload)
+    if(!synced){
+        vid.currentTime=payload.time
+        if(payload.paused) vid.pause()
+        else vid.play()            
+    }
+    synced=true
+})
 socket.on('pause', ()=>{ vid.pause() })
 socket.on('play', (time)=>{
     vid.currentTime=time
@@ -85,6 +99,8 @@ navigator.mediaDevices.getUserMedia({
     })
 
     socket.on('user-connected', (userId)=>{
+        if(synced) socket.emit('welcome', {time: vid.currentTime, paused: vid.paused})
+        console.log('send welcome package')
         connectToNewUser(userId, stream)
     })
 })

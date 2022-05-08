@@ -26,6 +26,11 @@ global.io.on('connect', socket => {
             socket.broadcast.to(roomId).emit('user-disconnected', userId)
         })
 
+
+        socket.on('welcome', payload=>{
+            console.log('welcome packet', payload)
+            socket.broadcast.to(roomId).emit('welcome', payload)
+        })
         socket.on('new-message', payload =>{
             socket.broadcast.to(roomId).emit('new-message', payload)
         })
