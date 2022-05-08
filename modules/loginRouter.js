@@ -26,8 +26,8 @@ router.post('/', async (req,res)=>{
 
     //create and sign token
     const token=jwt.sign({name: foundUser.name}, "top-secret")
-    res.header('auth-token', token).send(token)
-    
+    res.cookie('auth', token)
+    res.redirect('/')
     //logged in
 })
 

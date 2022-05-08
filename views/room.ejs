@@ -6,6 +6,7 @@
     <title>Private room</title>
     <script>
       const roomId = '<%=roomId%>'
+      const userName = '<%=userName%>'
     </script>
     <script src="/socket.io/socket.io.js" defer></script>
     <script src="https://unpkg.com/peerjs@1.3.2/dist/peerjs.min.js"></script>
@@ -36,7 +37,7 @@
             placeholder="Enter message" 
             id="message"> 
             <button type="submit" class="submit">Send</button>
-            <p id="name"></p>
+            <p id="name">As <%=userName%></p>
           </form>
         </div>
       </div>      

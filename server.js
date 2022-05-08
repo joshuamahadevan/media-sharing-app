@@ -13,6 +13,7 @@ const mongoose=require('mongoose')
 mongoose.connect('mongodb://localhost/mediaShare', ()=>{
     console.log('connected to database')
 })
+const cookieParser = require('cookie-parser')
 
 //port 
 const PORT=3000
@@ -22,13 +23,19 @@ app.set('view engine', 'ejs') //view engine
 app.use(express.json()) //parser for json
 app.use(express.urlencoded({extended: true})) //pareser for url-encoded 
 app.use(express.static('public'))
+app.use(cookieParser())
 
+//ROUTERS
 
+//public routes
 app.use('/auth', authRouter)
-//routers
 app.get('/', (req,res)=>{  
     res.render('home')
 })
+
+app.use(verify)
+//protected routes
+
 app.use('/upload', uploadRouter)
 app.use('/rooms', roomsRouter)
 app.use('/stream', streamRouter)

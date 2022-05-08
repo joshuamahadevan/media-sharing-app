@@ -8,9 +8,13 @@ const registerRouter=require('./registerRouter')
 router.use('/login', loginRouter)
 router.use('/register', registerRouter)
 router.get('/', (req,res)=> res.redirect('auth/login'))
+router.get('/logout', (req,res) => {
+    res.clearCookie('auth')
+    res.redirect('/')
+})
 
 const verify = (req,res,next)=>{
-    const token=req.header('auth-token')
+    const token=req.cookies.auth
     if(!token) return res.status(401).send('Access Denied')
 
     try{

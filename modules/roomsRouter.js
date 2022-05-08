@@ -9,6 +9,7 @@ router.get('/:roomId', (req,res)=>{
     // console.log('room id: '+ req.params.roomId, global.files[req.params.roomId])
     res.render('room', {
         roomId: req.params.roomId, 
+        userName: req.user.name,
         fileName: global.files[req.params.roomId].name, 
         fileType: global.files[req.params.roomId].type }
     )

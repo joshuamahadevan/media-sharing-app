@@ -33,18 +33,17 @@ socket.on('play', (time)=>{
 const msg=document.getElementById('message')
 const msgBox=document.getElementById('chat-box')
 
-let userName=null
-document.addEventListener('DOMContentLoaded', ()=>{
-    while(1){
-        let name=prompt('Please enter your name', 'Name')
-        if(name!=null){
-            userName=name
-            document.getElementById('name').innerHTML=`as ${userName}`
-            console.log(userName)
-            break;
-        }        
-    }
-})
+// document.addEventListener('DOMContentLoaded', ()=>{
+//     while(1){
+//         let name=prompt('Please enter your name', 'Name')
+//         if(name!=null){
+//             userName=name
+//             document.getElementById('name').innerHTML=`as ${userName}`
+//             console.log(userName)
+//             break;
+//         }        
+//     }
+// })
 
 //sending msgs
 const sendMessage = (e)=>{
