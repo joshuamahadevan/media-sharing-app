@@ -8,7 +8,7 @@ router.get('/:fileName', (req,res)=>{
     // Ensure there is a range given for the video
     const range = req.headers.range;
     if (!range) {
-        res.status(400).send("Requires Range header");
+        res.status(400).render('error',{error: "Requires Range header"});
     }
 
     // get video stats

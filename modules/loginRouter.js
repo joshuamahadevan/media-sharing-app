@@ -14,21 +14,32 @@ router.post('/', async (req,res)=>{
     console.log(req.body)
     //validate before proceeding
     const {error}=loginValidation(req.body)
-    if(error) res.status(400).send(error.details[0].message)
-
-    //check if email exists
-    const foundUser = await User.findOne({email:req.body.email})
-    if(!foundUser) res.status(400).send('Email doesnt exists')
-
-    //check if password is correct
-    const validPass = await bcrypt.compare(req.body.password, foundUser.password)
-    if(!validPass) res.status(400).send('Wrong Password')
-
-    //create and sign token
-    const token=jwt.sign({name: foundUser.name}, "top-secret")
-    res.cookie('auth', token)
-    res.redirect('/')
-    //logged in
+    if(error){
+        res.status(400).render('error',{error:error.details[0].message})
+        next()
+    } 
+    else{
+        //check if email exists
+        const foundUser = await User.findOne({email:req.body.email})
+        if(!foundUser) {
+            res.status(400).render('error',{error:'Email doesn\'t exists'})
+            next()
+        }
+        else{
+            //check if password is correct
+            const validPass = await bcrypt.compare(req.body.password, foundUser.password)
+            if(!validPass) {
+                res.status(400).render('error',{error:'Wrong Password'})
+                next()
+            }else{
+                //create and sign token
+                const token=jwt.sign({name: foundUser.name}, "top-secret")
+                res.cookie('auth', token)
+                res.redirect('/')
+                //logged in
+            }
+        }
+    }
 })
 
 module.exports=router

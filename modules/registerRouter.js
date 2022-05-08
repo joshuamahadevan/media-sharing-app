@@ -14,7 +14,7 @@ router.post('/', async (req,res, next)=>{
     //validate user before saving
     const {error}=registerValidation(req.body)
     if(error) {
-        res.status(400).send(error.details[0].message)
+        res.status(400).render('error',{error:error.details[0].message})
         next()
     }
     console.log('validated')
@@ -23,7 +23,7 @@ router.post('/', async (req,res, next)=>{
     const emailExists = await User.findOne({email:req.body.email})
     console.log(emailExists)
     if(emailExists) {
-        res.status(400).send('Email already exists')
+        res.status(400).render('error',{error: 'Email already exists'})
         next()
     }else{
         console.log('checked for duplicates')
@@ -45,7 +45,7 @@ router.post('/', async (req,res, next)=>{
             const savedUser= await user.save();
             res.redirect('/auth/login')
         }catch(err){
-            res.status(400).send(err)
+            res.status(400).render('error',{error:err})
         }
     }
 
