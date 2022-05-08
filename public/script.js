@@ -65,6 +65,9 @@ const videogrid=document.getElementById('video-grid')
 const myVideo=document.createElement('video')
 myVideo.muted=true
 
+const peers={}
+const videos={}
+
 navigator.mediaDevices.getUserMedia({
     video:true,
     audio:true
@@ -72,8 +75,10 @@ navigator.mediaDevices.getUserMedia({
     addVideoStream(myVideo, stream)
     
     myPeer.on('call', call =>{
+        peers[call.peer]=call;
         call.answer(stream)
         const video = document.createElement('video')
+        videos[call.peer]=video
         call.on('stream', userVideoStream =>{
             addVideoStream(video, userVideoStream)
         })
@@ -84,10 +89,12 @@ navigator.mediaDevices.getUserMedia({
     })
 })
 
-const peers={}
+
 
 socket.on('user-disconnected', (userId)=>{
+    videos[userId].remove()
     if(peers[userId]) peers[userId].close()
+    console.log('closed ', peers[userId],' with ',userId)
 })
 
 
@@ -98,6 +105,7 @@ function connectToNewUser(userId, stream){
     const video=document.createElement('video')
     call.on('stream', userVideoStream =>{
         addVideoStream(video, userVideoStream)
+        videos[userId]=video
     })
     call.on('close', ()=>{
         video.remove()

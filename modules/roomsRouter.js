@@ -1,7 +1,6 @@
 const express=require('express')
 const router=express.Router()
 const global=require('./global')
-const io=require('socket.io')
 
 router.get('/:roomId', (req,res)=>{
     // console.log('redirected to correct room')
