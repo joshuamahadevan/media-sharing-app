@@ -6,12 +6,16 @@ router.get('/:roomId', (req,res)=>{
     // console.log('redirected to correct room')
     // console.log(global)
     // console.log('room id: '+ req.params.roomId, global.files[req.params.roomId])
-    res.render('room', {
-        roomId: req.params.roomId, 
-        userName: req.user.name,
-        fileName: global.files[req.params.roomId].name, 
-        fileType: global.files[req.params.roomId].type }
-    )
+    if(!global.files[req.params.roomId] ){
+        res.status(404).render('error', {error: '404 Page not found'})
+    }else{
+        res.render('room', {
+            roomId: req.params.roomId, 
+            userName: req.user.name,
+            fileName: global.files[req.params.roomId].name, 
+            fileType: global.files[req.params.roomId].type }
+        )
+    }
 })
 
 global.io.on('connect', socket => {
